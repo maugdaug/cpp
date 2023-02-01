@@ -9,13 +9,17 @@ int *ptr;
 
 cow *my_cow;
 
+// References:
+int my_int = 4;
+int& my_ref = my_int;
+
 int main() {
 	ptr = &a;
 
 	cout << "           The content of a is " << a << endl;
 	cout << "    ptr is pointing to address " << ptr << endl;
 	cout << "           The address of a is " << &a << endl;
-	cout << "Where ptr is pointing, we have " << *ptr << endl;
+	cout << "Where ptr is pointing, we have " << *ptr << endl;	//dereference
 	cout << "         The address of ptr is " << &ptr << endl;
 	cout << endl;
 
