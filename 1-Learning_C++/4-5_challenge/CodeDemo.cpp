@@ -34,7 +34,9 @@ int main(){
 	// Write your code here
 
 	float points = 0.0f, credits = 0.0f;
-	for (Grade& grd : grades)				// grd is a reference to the current element in of grades vector
+	for (Grade& grd : grades)				// & means that grd is a reference to the current element in of grades vector
+											// This is done to prevent copying every element to grd as the loop progresses
+											// This could also be done with a pointer
 		if (grd.get_student_id() == id) {
 			float num_grd;
 			switch (grd.get_grade()) {
@@ -51,7 +53,15 @@ int main(){
 			};
 
 			int j=0;
+			while ( j < courses.size() && courses[j].get_id() != grd.get_course_id())
+				j++;
+			credits += courses[j].get_credits();
+			points += num_grd * courses[j].get_credits();
 		}
+
+	GPA = points/credits;
+
+
 
 	// for (int i=0; i<grades.size(); i++) {
 	// 	if (grades[i].get_student_id() == id) {
@@ -88,6 +98,8 @@ int main(){
 	// }
 
 	string student_str;
+	// int i=0;
+
 	student_str = students[id].get_name(); // Change this to the selected student's name
 
 	cout << "The GPA for " << student_str << " is " << GPA << endl;
