@@ -1,4 +1,5 @@
 #include "records.h"
+#include <iostream>
 
 using namespace std;
 
@@ -102,4 +103,24 @@ float StudentRecords::get_GPA(int sid){
 		}
 
 	return (points/credits);
+}
+
+void StudentRecords::report_card(int sid) {
+	float points = 0.0f, credits = 0.0f;
+	string name = get_student_name(sid);
+
+	cout << "\nStudent ID:   " << sid << endl;
+	cout << "Student name: " << name << endl;
+	
+	for(Grade& grd : grades) {
+		if(grd.get_student_id() == sid) {
+			for(Course& crs : courses) {
+				if(crs.get_id() == grd.get_course_id()) {
+					cout << "Grade: " << grd.get_grade() << "   Course: " << crs.get_name() << endl;
+				}
+			}
+		}
+	}
+
+	cout << "\nGPA: " << get_GPA(sid) << endl;
 }

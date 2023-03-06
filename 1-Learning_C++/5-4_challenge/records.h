@@ -57,4 +57,5 @@ class StudentRecords{
 		std::string get_student_name(int);
 		unsigned char get_course_credits(int);
 		float get_GPA(int);
+		void report_card(int);
 };

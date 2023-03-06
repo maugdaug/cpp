@@ -44,21 +44,21 @@ char Grade::get_grade(){
 	return grade;
 }
 
-void StudentRecords::add_student(int sid, string sname) {
+void StudentRecords::add_student(int sid, string sname){
 	students.push_back(Student(sid, sname));
 }
 
-void StudentRecords::add_course(int cid, string cname, unsigned char ccredits) {
+void StudentRecords::add_course(int cid, string cname, unsigned char ccredits){
 	courses.push_back(Course(cid, cname, ccredits));
 }
 
-void StudentRecords::add_grade(int sid, int cid, char grade) {
-	grades.push_back(Grade(sid, cid, grade)); 
+void StudentRecords::add_grade(int sid, int cid, char grade){
+	grades.push_back(Grade(sid, cid, grade));
 }
 
 float StudentRecords::get_num_grade(char letter){
-	float num_grd;
-	switch (letter) {
+	float num_grd;          // float for the numeric grade
+	switch (letter){
 	case 'A': num_grd = 4.0f;
 		break;
 	case 'B': num_grd = 3.0f;
@@ -67,39 +67,35 @@ float StudentRecords::get_num_grade(char letter){
 		break;
 	case 'D': num_grd = 1.0f;
 		break;
-	case 'F': num_grd = 0.0f;
+	default:  num_grd = 0.0f;
 		break;
 	};
 	return num_grd;
 }
 
 string StudentRecords::get_student_name(int sid){
-	int i=0;
-
-	while (i<students.size() && students[i].get_id() != sid)
+	int i = 0;
+	while (i < students.size() && students[i].get_id() != sid)
 		i++;
-
 	return students[i].get_name();
 }
 
 unsigned char StudentRecords::get_course_credits(int cid){
-	int j=0;
-	while ( j < courses.size() && courses[j].get_id() != cid)
+	int j = 0;
+	while (j < courses.size() && courses[j].get_id() != cid)
 		j++;
 	return courses[j].get_credits();
 }
 
 float StudentRecords::get_GPA(int sid){
 	float points = 0.0f, credits = 0.0f;
-	for (Grade& grd : grades)				// & means that grd is a reference to the current element in of grades vector
-											// This is done to prevent copying every element to grd as the loop progresses
-											// This could also be done with a pointer
-		if (grd.get_student_id() == sid) {
-			// points += num_grd * courses[j].get_credits();
+	for (Grade& grd : grades)
+		if (grd.get_student_id() == sid){
+			// calculate total credits and points
 			unsigned char current_credits = get_course_credits(grd.get_course_id());
 			credits += current_credits;
 			points += get_num_grade(grd.get_grade()) * current_credits;
 		}
-
-	return (points/credits);
+	return (points / credits);
 }
+
